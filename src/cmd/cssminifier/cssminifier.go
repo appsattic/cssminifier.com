@@ -1,13 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"path"
 
+	"github.com/chilts/sid"
 	"github.com/gomiddleware/mux"
 )
+
+var dir = "/var/lib/com-cssminifier"
 
 func check(err error) {
 	if err != nil {
@@ -47,6 +52,21 @@ func main() {
 			googleAnalytics,
 		}
 		render(w, tmpl, "index.html", data)
+	})
+
+	m.Get("/raw", redirect("/"))
+	m.Post("/raw", func(w http.ResponseWriter, r *http.Request) {
+		// firstly, we need to create a file
+		input := r.FormValue("input")
+
+		fmt.Printf("input=%s\n", input)
+
+		// write it to a file
+		id := sid.Id()
+		filename := path.Join(dir, id+".css")
+
+		fmt.Printf("filename=%s\n", filename)
+		fmt.Fprintln(w, input)
 	})
 
 	// finally, check all routing was added correctly
