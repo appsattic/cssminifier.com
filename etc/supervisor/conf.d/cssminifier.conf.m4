@@ -1,6 +1,6 @@
 [program:cssminifier]
-directory = /home/chilts/src/appsattic-cssminifier.gd
-command = /home/chilts/src/appsattic-cssminifier.gd/bin/cssminifier
+directory = /home/chilts/src/appsattic-cssminifier.com
+command = /home/chilts/src/appsattic-cssminifier.com/bin/cssminifier
 user = chilts
 autostart = true
 autorestart = true
