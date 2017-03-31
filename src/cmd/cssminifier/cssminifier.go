@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"path"
 
 	"github.com/chilts/sid"
@@ -28,6 +30,10 @@ func main() {
 		log.Fatal("Specify a port to listen on in the environment variable 'CSSMINIFIER_PORT'")
 	}
 	googleAnalytics := os.Getenv("CSSMINIFIER_GOOGLE_ANALYTICS")
+	dir := os.Getenv("CSSMINIFIER_DIR")
+	if dir == "" {
+		log.Fatal("Specify a dir to save files to in the environment variable 'CSSMINIFIER_DIR'")
+	}
 
 	// load up all templates
 	tmpl, err := template.New("").ParseGlob("./templates/*.html")
@@ -56,17 +62,61 @@ func main() {
 
 	m.Get("/raw", redirect("/"))
 	m.Post("/raw", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Printf("/raw: entry")
 		// firstly, we need to create a file
 		input := r.FormValue("input")
 
 		fmt.Printf("input=%s\n", input)
 
-		// write it to a file
+		// create a unique id to use in the filename
 		id := sid.Id()
-		filename := path.Join(dir, id+".css")
 
+		// write it to a file
+		filename := path.Join(dir, id+".css")
+		output := path.Join(dir, id+".min.css")
 		fmt.Printf("filename=%s\n", filename)
-		fmt.Fprintln(w, input)
+		fmt.Printf("output=%s\n", output)
+		fOrig, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0700)
+		if err != nil {
+			internalServerError(w, err)
+			return
+		}
+		defer fOrig.Close()
+
+		// copy from the input to the file
+		n, err := io.WriteString(fOrig, input)
+		if err != nil {
+			internalServerError(w, err)
+			return
+		}
+		fmt.Printf("Written %d bytes to original file.\n", n)
+
+		// create the command to be executed
+		cmd := exec.Command("./node_modules/.bin/cleancss", "--output", output, filename)
+		fmt.Printf("cmd=%#v\n", cmd)
+
+		// run it
+		err = cmd.Run()
+		if err != nil {
+			internalServerError(w, err)
+			return
+		}
+
+		// open the file again and stream to the response
+		fMin, err := os.Open(output)
+		if err != nil {
+			internalServerError(w, err)
+			return
+		}
+		defer fMin.Close()
+
+		// stream to the response
+		n2, err := io.Copy(w, fMin)
+		if err != nil {
+			internalServerError(w, err)
+			return
+		}
+		fmt.Printf("Read %d bytes from minified file.\n", n2)
 	})
 
 	// finally, check all routing was added correctly
