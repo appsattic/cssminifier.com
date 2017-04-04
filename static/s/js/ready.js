@@ -40,6 +40,7 @@ $(function() {
 
     function minify() {
         var input = $input.val();
+        $output.val('');
         $.post( '/raw', { input : input }, function(data) {
             if ( data ) {
                 $output.val(data);
@@ -64,8 +65,8 @@ $(function() {
     });
 
     $('#download').click(function(ev) {
+        ev.preventDefault();
         $form.attr('action', '/download').submit();
-        minify();
     });
 
     $('#raw').click(function(ev) {
