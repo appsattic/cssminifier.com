@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"os/exec"
 	"path"
+	"strings"
 
 	"github.com/chilts/sid"
 	"github.com/gomiddleware/mux"
@@ -92,12 +94,42 @@ func main() {
 		}
 		fmt.Printf("Written %d bytes to original file.\n", n)
 
-		// run `cleancss`
+		// run `cleancss` (shouldn't be anything on stdout, but perhaps stderr if there's a problem)
 		cmd := exec.Command("./node_modules/.bin/cleancss", "--output", output, filename)
-		err = cmd.Run()
+		stderr, err := cmd.StderrPipe()
 		if err != nil {
 			internalServerError(w, err)
 			return
+		}
+
+		// start the process
+		err = cmd.Start()
+		if err != nil {
+			internalServerError(w, err)
+			return
+		}
+
+		// slurp in stderr
+		b, _ := ioutil.ReadAll(stderr)
+		slurpStdErr := string(b)
+		fmt.Printf("stderr : %s\n", slurpStdErr)
+
+		// wait for the command to finish
+		err = cmd.Wait()
+		if err != nil {
+			internalServerError(w, err)
+			return
+		}
+
+		if len(slurpStdErr) > 0 {
+			fmt.Printf("Something appeared on stderr = %d\n", len(slurpStdErr))
+			// replace some bits we don't want to show the user (ToDo: generate this from `dir`.)
+			r1 := strings.NewReplacer("../../../../var/lib/cssminifier/css/", "", "*/", "", "/*", "")
+			slurpStdErr = r1.Replace(slurpStdErr)
+
+			// wrap the error in a CSS comment at the top of the minified CSS so the user will notice it
+			slurpStdErr = "/*\n\n" + slurpStdErr + "\n*/\n\n"
+			fmt.Printf("stderr : %s\n", slurpStdErr)
 		}
 
 		// open the file again and stream to the response
@@ -107,6 +139,13 @@ func main() {
 			return
 		}
 		defer fMin.Close()
+
+		// write any error to the output first
+		_, err = w.Write([]byte(slurpStdErr))
+		if err != nil {
+			internalServerError(w, err)
+			return
+		}
 
 		// stream to the response
 		n2, err := io.Copy(w, fMin)
