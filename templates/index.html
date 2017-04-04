@@ -9,13 +9,12 @@
     <meta name="author" content="Andrew Chilton, @andychilton">
     <link rel="shortcut icon" href="/favicon.ico">
     <title>CSS Minifier</title>
-    <!-- Bootstrap core CSS-->
-    <link href="//cdn.jsdelivr.net/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template-->
-    <link href="/s/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/s/css/bootstrap-v4.0.0-alpha.6.min.css">
+    <link rel="stylesheet" href="/s/css/style.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries--><!--[if lt IE 9]>
-      <script src="//cdn.jsdelivr.net/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
   <body>
@@ -84,9 +83,9 @@
                 </div>
               </div>
               <div class="actions">
-                <button id="minify" type="submit" class="btn btn-primary">Minify</button> 
-                <button id="download" type="button" disabled="disabled" class="btn">Download as File</button> 
-                <button id="raw" type="button" disabled="disabled" class="btn">RAW</button> 
+                <button id="minify" type="submit" class="btn btn-primary">Minify</button>
+                <button id="download" type="button" disabled="disabled" class="btn">Download as File</button>
+                <button id="raw" type="button" disabled="disabled" class="btn">RAW</button>
                 <input id="clear" type="reset" value="Clear" class="btn">
               </div>
             </fieldset>
@@ -142,8 +141,10 @@
       ga('create', '{{ . }}', 'cssminifier.com'); ga('send', 'pageview');
     </script>
     {{ end }}
-    <script src="//cdn.jsdelivr.net/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/s/js/ready.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/tether/1.4.0/tether.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="/s/js/ready.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer>{lang: 'en-GB'}</script>
   </body>
 </html>
