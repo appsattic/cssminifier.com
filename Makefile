@@ -9,7 +9,7 @@ fmt:
 
 minify:
 	curl -X POST -s --data-urlencode 'input@static/s/js/ready.js' https://javascript-minifier.com/raw > static/s/js/ready.min.js
-	curl -X POST -s --data-urlencode 'input@static/s/css/style.css' https://cssminifier.com/raw > static/s/css/style.min.css
+	curl -X POST -s --data-urlencode 'input@static/s/css/styles.css' https://cssminifier.com/raw > static/s/css/styles.min.css
 
 test:
 	curl -X POST -s --data-urlencode 'input@test/calc.css'          http://localhost:9804/raw > test/calc.min.css

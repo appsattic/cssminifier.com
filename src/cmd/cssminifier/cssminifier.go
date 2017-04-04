@@ -54,9 +54,11 @@ func main() {
 	m.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		data := struct {
 			BaseUrl         string
+			PageName        string
 			GoogleAnalytics string
 		}{
 			baseUrl,
+			"index",
 			googleAnalytics,
 		}
 		render(w, tmpl, "index.html", data)

@@ -2,59 +2,64 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Online CSS Minifier/Compressor. Free! Works with Media Queries. Provides an API. Simple Quick and Fast!">
-    <meta name="keywords" content="css, cssminifier, css minifier, css minification, css minify, minify css, minified css, compress css, design, css3, web, html, javascript, web development, hosting">
-    <meta name="author" content="Andrew Chilton, @andychilton">
-    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
     <title>CSS Minifier</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/s/css/bootstrap-v4.0.0-alpha.6.min.css">
-    <link rel="stylesheet" href="/s/css/style.min.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries--><!--[if lt IE 9]>
-      <script src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="/s/css/styles.min.css">
   </head>
+
   <body>
+
     <div class="container">
-      <!-- Static navbar-->
-      <div role="navigation" class="navbar navbar-default">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">cssminifier.com</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="https://blog.appsattic.com">Blog</a></li>
-            <li><a href="/plugins">Plugins</a></li>
-            <li><a href="/programs">Programs</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <p class="navbar-text">Our other services:</p>
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+              <a class="nav-link {{ if eq .PageName "index" }}active{{ end }}" href="/">
+                Home{{ if eq .PageName "index" }}
+                <span class="sr-only">(current)</span>{{ end }}
+              </a>
             </li>
-            <li><a href="https://javascript-minifier.com/">JavaScript Minifier</a></li>
-            <li><a href="http://img-resize.com/">Image Resize</a></li>
-            <li><a href="http://pngcrush.com/">PNG Crush</a></li>
-            <li><a href="http://jpgoptimiser.com/">JPG Optimiser</a></li>
+            <li class="nav-item">
+              <a class="nav-link {{ if eq .PageName "about" }}active{{ end }}" href="/about">
+                About{{ if eq .PageName "about" }}
+                <span class="sr-only">(current)</span>{{ end }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ if eq .PageName "plugins" }}active{{ end }}" href="/plugins">
+                Plugins{{ if eq .PageName "plugins" }}
+                <span class="sr-only">(current)</span>{{ end }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ if eq .PageName "programs" }}active{{ end }}" href="/programs">
+                Programs{{ if eq .PageName "programs" }}
+                <span class="sr-only">(current)</span>{{ end }}
+              </a>
+            </li>
           </ul>
-        </div>
+        </nav>
+        <h3 class="text-muted">cssminifier.com <small>by <a href="https://appsattic.com" target="_new">AppsAttic</a></small></h3>
       </div>
+
       <div id="ads" class="row">
-        <div class="col-md-4">
+        <div class="col-4">
           <h1>Minify your CSS</h1>
           <p>Online CSS Minifier/Compressor. Free! Provides an API. Simple Quick and Fast.</p>
         </div>
-        <div class="col-md-8 c"><a href="https://www.digitalocean.com/?refcode=c151de638f83"><img width="728" height="90" src="/s/img/digital-ocean-728x90.jpg" title="Digital Ocean" alt="Digital Ocean"></a></div>
+        <div class="col-8 c"><a href="https://www.digitalocean.com/?refcode=c151de638f83"><img width="728" height="90" src="/s/img/digital-ocean-728x90.jpg" title="Digital Ocean" alt="Digital Ocean"></a></div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-4">
           <div class="row">
-            <div class="col-md-4"><a href="https://twitter.com/share" data-url="https://cssminifier.com/" data-text="Online CSS Minifier/Compressor. Free! Provides an API. Simple Quick and Fast." data-via="andychilton" class="twitter-share-button">Tweet</a>
+            <div class="col-4"><a href="https://twitter.com/share" data-url="https://cssminifier.com/" data-text="Online CSS Minifier/Compressor. Free! Provides an API. Simple Quick and Fast." data-via="andychilton" class="twitter-share-button">Tweet</a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
               <div id="fb-root"></div>
               <div style="font-size:1px;display:inline-block;" data-href="https://cssminifier.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" class="fb-like"></div>
               <script>
@@ -63,54 +68,62 @@
                 fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
               </script>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
               <div style="font-size:1px;display:inline-block;" data-size="medium" data-href="https://cssminifier.com/" class="g-plusone"></div>
             </div>
           </div>
         </div>
-        <div class="col-md-8 c">
+        <div class="col-8 c">
           <p>We recommend <a href="https://www.digitalocean.com/?refcode=c151de638f83">Digital Ocean</a> for hosting your sites. Free $10 credit when you sign up.</p>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-6">
           <h3 class="muted">Input CSS</h3>
           <form id="input-form" method="post" name="f" action="/minify" class="form-stacked">
             <fieldset>
               <div class="clearfix">
                 <div class="input">
-                  <textarea id="input" name="input" rows="15" wrap="off" autofocus="autofocus" spellcheck="false" class="col-md-12"></textarea>
+                  <textarea id="input" name="input" rows="15" wrap="off" autofocus="autofocus" spellcheck="false" class="col-12"></textarea>
                 </div>
               </div>
-              <div class="actions">
+              <p class="actions">
                 <button id="minify" type="submit" class="btn btn-primary">Minify</button>
                 <button id="download" type="button" disabled="disabled" class="btn">Download as File</button>
                 <button id="raw" type="button" disabled="disabled" class="btn">RAW</button>
                 <input id="clear" type="reset" value="Clear" class="btn">
-              </div>
+              </p>
             </fieldset>
           </form>
         </div>
-        <div class="col-md-6">
+        <div class="col-6">
           <h3 class="muted">Minified Output</h3>
           <form id="output-form" name="f" class="form-stacked">
             <fieldset>
               <div class="clearfix">
                 <div class="input">
-                  <textarea id="output" name="output" rows="15" wrap="soft" disabled="disabled" class="col-md-12"></textarea>
+                  <textarea id="output" name="output" rows="15" wrap="soft" disabled="disabled" class="col-12"></textarea>
                 </div>
               </div>
-              <div class="actions">
+              <p class="actions">
                 <button id="select" type="button" disabled="disabled" class="btn">Select All</button>
-              </div>
+              </p>
             </fieldset>
           </form>
         </div>
       </div>
       <h2 class="muted">Language Examples</h2>
       <p>Click on the language of your choice:</p>
-      <div role="group" aria-label="Language Examples Navigation" class="btn-group"> <a href="/wget" class="btn btn-default">wget</a> <a href="/curl" class="btn btn-default">Curl</a> <a href="/nodejs" class="btn btn-default">Node.js</a> <a href="/python" class="btn btn-default">Python</a> <a href="/ruby" class="btn btn-default">Ruby</a> <a href="/perl" class="btn btn-default">Perl</a> <a href="/php" class="btn btn-default">PHP</a> <a href="/c-sharp" class="btn btn-default">C#</a>
-      </div>
+      <p class="btn-group" role="group" aria-label="Language Examples Navigation">
+        <a href="/wget" class="btn btn-primary">wget</a>
+        <a href="/curl" class="btn btn-secondary">Curl</a>
+        <a href="/nodejs" class="btn btn-success">Node.js</a>
+        <a href="/python" class="btn btn-info">Python</a>
+        <a href="/ruby" class="btn btn-default">Ruby</a>
+        <a href="/perl" class="btn btn-default">Perl</a>
+        <a href="/php" class="btn btn-default">PHP</a>
+        <a href="/c-sharp" class="btn btn-default">C#</a>
+      </p>
       <h3 class="muted">More Languages</h3>
       <p>
         I'd love to add more examples in your favourite programming language, so feel free to send them my way.

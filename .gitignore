@@ -3,5 +3,5 @@
 /node_modules/
 set-env-*.sh
 
-static/s/css/style.min.css
+static/s/css/styles.min.css
 static/s/js/ready.min.js
