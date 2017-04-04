@@ -62,21 +62,22 @@ func main() {
 
 	m.Get("/raw", redirect("/"))
 	m.Post("/raw", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Printf("/raw: entry")
-		// firstly, we need to create a file
+		fmt.Printf("/raw: entry\n")
+
+		// get the input
 		input := r.FormValue("input")
 
-		fmt.Printf("input=%s\n", input)
-
-		// create a unique id to use in the filename
+		// create a unique id to use in the filenames
 		id := sid.Id()
-
-		// write it to a file
 		filename := path.Join(dir, id+".css")
 		output := path.Join(dir, id+".min.css")
+
+		fmt.Printf("id=%s\n", id)
 		fmt.Printf("filename=%s\n", filename)
 		fmt.Printf("output=%s\n", output)
-		fOrig, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0700)
+
+		// write to a file
+		fOrig, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0600)
 		if err != nil {
 			internalServerError(w, err)
 			return
@@ -91,11 +92,8 @@ func main() {
 		}
 		fmt.Printf("Written %d bytes to original file.\n", n)
 
-		// create the command to be executed
+		// run `cleancss`
 		cmd := exec.Command("./node_modules/.bin/cleancss", "--output", output, filename)
-		fmt.Printf("cmd=%#v\n", cmd)
-
-		// run it
 		err = cmd.Run()
 		if err != nil {
 			internalServerError(w, err)
