@@ -1,117 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/favicon.ico">
-    <title>CSS Minifier</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/s/css/styles.min.css">
-  </head>
+{{ template "header.html" . }}
 
-  <body>
-
-    <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills float-right">
-            <li class="nav-item">
-              <a class="nav-link {{ if eq .PageName "index" }}active{{ end }}" href="/">
-                Home{{ if eq .PageName "index" }}
-                <span class="sr-only">(current)</span>{{ end }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {{ if eq .PageName "about" }}active{{ end }}" href="/about">
-                About{{ if eq .PageName "about" }}
-                <span class="sr-only">(current)</span>{{ end }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {{ if eq .PageName "plugins" }}active{{ end }}" href="/plugins">
-                Plugins{{ if eq .PageName "plugins" }}
-                <span class="sr-only">(current)</span>{{ end }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {{ if eq .PageName "programs" }}active{{ end }}" href="/programs">
-                Programs{{ if eq .PageName "programs" }}
-                <span class="sr-only">(current)</span>{{ end }}
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">cssminifier.com <small>by <a href="https://appsattic.com" target="_new">AppsAttic</a></small></h3>
-      </div>
-
-      <div id="ads" class="row">
-        <div class="col-4">
-          <h1>Minify your CSS</h1>
-          <p>Online CSS Minifier/Compressor. Free! Provides an API. Simple Quick and Fast.</p>
-        </div>
-        <div class="col-8 c"><a href="https://www.digitalocean.com/?refcode=c151de638f83"><img width="728" height="90" src="/s/img/digital-ocean-728x90.jpg" title="Digital Ocean" alt="Digital Ocean"></a></div>
-      </div>
-      <div class="row">
-        <div class="col-4">
-          <div class="row">
-            <div class="col-4"><a href="https://twitter.com/share" data-url="https://cssminifier.com/" data-text="Online CSS Minifier/Compressor. Free! Provides an API. Simple Quick and Fast." data-via="andychilton" class="twitter-share-button">Tweet</a>
-              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-            </div>
-            <div class="col-4">
-              <div id="fb-root"></div>
-              <div style="font-size:1px;display:inline-block;" data-href="https://cssminifier.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" class="fb-like"></div>
-              <script>
-                (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.0";
-                fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
-              </script>
-            </div>
-            <div class="col-4">
-              <div style="font-size:1px;display:inline-block;" data-size="medium" data-href="https://cssminifier.com/" class="g-plusone"></div>
+  <div class="row">
+    <div class="col-6">
+      <h3 class="muted">Input CSS</h3>
+      <form id="input-form" method="post" name="f" action="/minify" class="form-stacked">
+        <fieldset>
+          <div class="clearfix">
+            <div class="input">
+              <textarea id="input" name="input" rows="15" wrap="off" autofocus="autofocus" spellcheck="false" class="col-12"></textarea>
             </div>
           </div>
-        </div>
-        <div class="col-8 c">
-          <p>We recommend <a href="https://www.digitalocean.com/?refcode=c151de638f83">Digital Ocean</a> for hosting your sites. Free $10 credit when you sign up.</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <h3 class="muted">Input CSS</h3>
-          <form id="input-form" method="post" name="f" action="/minify" class="form-stacked">
-            <fieldset>
-              <div class="clearfix">
-                <div class="input">
-                  <textarea id="input" name="input" rows="15" wrap="off" autofocus="autofocus" spellcheck="false" class="col-12"></textarea>
-                </div>
-              </div>
-              <p class="actions">
-                <button id="minify" type="submit" class="btn btn-primary">Minify</button>
-                <button id="download" type="button" disabled="disabled" class="btn">Download as File</button>
-                <button id="raw" type="button" disabled="disabled" class="btn">RAW</button>
-                <input id="clear" type="reset" value="Clear" class="btn">
-              </p>
-            </fieldset>
-          </form>
-        </div>
-        <div class="col-6">
-          <h3 class="muted">Minified Output</h3>
-          <form id="output-form" name="f" class="form-stacked">
-            <fieldset>
-              <div class="clearfix">
-                <div class="input">
-                  <textarea id="output" name="output" rows="15" wrap="soft" disabled="disabled" class="col-12"></textarea>
-                </div>
-              </div>
-              <p class="actions">
-                <button id="select" type="button" disabled="disabled" class="btn">Select All</button>
-              </p>
-            </fieldset>
-          </form>
-        </div>
-      </div>
+          <p class="actions">
+            <button id="minify" type="submit" class="btn btn-primary">Minify</button>
+            <button id="download" type="button" disabled="disabled" class="btn">Download as File</button>
+            <button id="raw" type="button" disabled="disabled" class="btn">RAW</button>
+            <input id="clear" type="reset" value="Clear" class="btn">
+          </p>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="col-6">
+      <h3 class="muted">Minified Output</h3>
+      <form id="output-form" name="f" class="form-stacked">
+        <fieldset>
+          <div class="clearfix">
+            <div class="input">
+              <textarea id="output" name="output" rows="15" wrap="soft" disabled="disabled" class="col-12"></textarea>
+            </div>
+          </div>
+          <p class="actions">
+            <button id="select" type="button" disabled="disabled" class="btn">Select All</button>
+          </p>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
       <h2 class="muted">Language Examples</h2>
       <p>Click on the language of your choice:</p>
       <p class="btn-group" role="group" aria-label="Language Examples Navigation">
@@ -143,22 +70,5 @@
       <p>Lots of people are making little programs to use CSS Minifier - see the <a href="/programs">programs</a> page.</p>
       <p>(Ends)</p>
     </div>
-    <div id="footer">
-      <div class="container"><a href="/">CSS Minifier</a> - By <a href="http://chilts.org/">chilts</a> - <a href="https://twitter.com/andychilton">@andychilton</a></div>
-    </div>
-    {{ with .GoogleAnalytics }}
-    <script type="text/javascript">
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', '{{ . }}', 'cssminifier.com'); ga('send', 'pageview');
-    </script>
-    {{ end }}
-    <script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/tether/1.4.0/tether.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-    <script src="/s/js/ready.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer>{lang: 'en-GB'}</script>
-  </body>
-</html>
+
+{{ template "footer.html" . }}
