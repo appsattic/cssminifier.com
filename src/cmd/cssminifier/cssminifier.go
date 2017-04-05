@@ -64,6 +64,32 @@ func main() {
 		render(w, tmpl, "index.html", data)
 	})
 
+	m.Get("/plugins", func(w http.ResponseWriter, r *http.Request) {
+		data := struct {
+			BaseUrl         string
+			PageName        string
+			GoogleAnalytics string
+		}{
+			baseUrl,
+			"plugins",
+			googleAnalytics,
+		}
+		render(w, tmpl, "plugins.html", data)
+	})
+
+	m.Get("/programs", func(w http.ResponseWriter, r *http.Request) {
+		data := struct {
+			BaseUrl         string
+			PageName        string
+			GoogleAnalytics string
+		}{
+			baseUrl,
+			"programs",
+			googleAnalytics,
+		}
+		render(w, tmpl, "programs.html", data)
+	})
+
 	m.Get("/raw", redirect("/"))
 	m.Post("/raw", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("/raw: entry\n")
