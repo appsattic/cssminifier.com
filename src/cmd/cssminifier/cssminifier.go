@@ -51,44 +51,10 @@ func main() {
 	m.Get("/favicon.ico", serveFile("./static/favicon.ico"))
 	m.Get("/robots.txt", serveFile("./static/robots.txt"))
 
-	m.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		data := struct {
-			BaseUrl         string
-			PageName        string
-			GoogleAnalytics string
-		}{
-			baseUrl,
-			"index",
-			googleAnalytics,
-		}
-		render(w, tmpl, "index.html", data)
-	})
-
-	m.Get("/plugins", func(w http.ResponseWriter, r *http.Request) {
-		data := struct {
-			BaseUrl         string
-			PageName        string
-			GoogleAnalytics string
-		}{
-			baseUrl,
-			"plugins",
-			googleAnalytics,
-		}
-		render(w, tmpl, "plugins.html", data)
-	})
-
-	m.Get("/programs", func(w http.ResponseWriter, r *http.Request) {
-		data := struct {
-			BaseUrl         string
-			PageName        string
-			GoogleAnalytics string
-		}{
-			baseUrl,
-			"programs",
-			googleAnalytics,
-		}
-		render(w, tmpl, "programs.html", data)
-	})
+	// pages
+	m.Get("/", servePage(tmpl, "index", baseUrl, googleAnalytics))
+	m.Get("/plugins", servePage(tmpl, "plugins", baseUrl, googleAnalytics))
+	m.Get("/programs", servePage(tmpl, "programs", baseUrl, googleAnalytics))
 
 	m.Get("/raw", redirect("/"))
 	m.Post("/raw", func(w http.ResponseWriter, r *http.Request) {
