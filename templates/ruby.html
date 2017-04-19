@@ -1,0 +1,28 @@
+{{ template "header.html" . }}
+
+  <div>
+    <h1>Ruby</h1>
+
+    <p>
+      Thanks to
+      <a href="https://github.com/jcron">Jeremy Cron</a>
+      for contributing this example.
+    </p>
+    <figure class="highlight">
+      <pre><code>require "rest_client"
+
+task :minify do
+  css_file = &quot;public/stylesheets/main.css&quot;
+  css_min_file = &quot;public/stylesheets/min/main.min.css&quot;
+  response = RestClient.post &quot;https://cssminifier.com/raw&quot;, {:input => File.open(css_file).read}
+  File.open(css_min_file, &quot;w&quot;).write(response)
+end</code></pre>
+    </figure>
+
+    <p>(Ends)</p>
+
+    {{ template "languages.html" . }}
+
+  </div>
+
+{{ template "footer.html" . }}

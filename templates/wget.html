@@ -1,0 +1,24 @@
+{{ template "header.html" . }}
+
+  <div>
+    <h1>wget</h1>
+
+    <p>
+      Minifying some CSS:
+    </p>
+    <figure class="highlight">
+      <pre><code>wget --post-data='input=p { color : red; }' --output-document=- https://cssminifier.com/raw</code></pre>
+    </figure>
+
+    <p>
+      Minifying a CSS file (e.g. style.css -> style.min.css):
+    </p>
+    <figure class="highlight">
+      <pre><code>wget --post-data="input=`cat style.css`" --output-document=style.min.css https://cssminifier.com/raw</code></pre>
+    </figure>
+
+    <p>(Ends)</p>
+
+  </div>
+
+{{ template "footer.html" . }}

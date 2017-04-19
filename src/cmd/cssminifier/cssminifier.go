@@ -55,6 +55,14 @@ func main() {
 	m.Get("/", servePage(tmpl, "index", baseUrl, googleAnalytics))
 	m.Get("/plugins", servePage(tmpl, "plugins", baseUrl, googleAnalytics))
 	m.Get("/programs", servePage(tmpl, "programs", baseUrl, googleAnalytics))
+	m.Get("/wget", servePage(tmpl, "wget", baseUrl, googleAnalytics))
+	m.Get("/curl", servePage(tmpl, "curl", baseUrl, googleAnalytics))
+	m.Get("/nodejs", servePage(tmpl, "nodejs", baseUrl, googleAnalytics))
+	m.Get("/python", servePage(tmpl, "python", baseUrl, googleAnalytics))
+	m.Get("/ruby", servePage(tmpl, "ruby", baseUrl, googleAnalytics))
+	m.Get("/perl", servePage(tmpl, "perl", baseUrl, googleAnalytics))
+	m.Get("/php", servePage(tmpl, "php", baseUrl, googleAnalytics))
+	m.Get("/c-sharp", servePage(tmpl, "c-sharp", baseUrl, googleAnalytics))
 
 	m.Get("/raw", redirect("/"))
 	m.Post("/raw", func(w http.ResponseWriter, r *http.Request) {

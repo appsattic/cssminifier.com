@@ -1,8 +1,41 @@
 {{ template "header.html" . }}
 
+  <div id="ads" class="row">
+    <div class="col-4">
+      <h1>Minify your CSS</h1>
+      <p>Online CSS Minifier/Compressor. Free! Provides an API. Simple Quick and Fast.</p>
+    </div>
+    <div class="col-8 c"><a href="https://www.digitalocean.com/?refcode=c151de638f83"><img width="728" height="90" src="/s/img/digital-ocean-728x90.jpg" title="Digital Ocean" alt="Digital Ocean"></a></div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="row">
+        <div class="col-4"><a href="https://twitter.com/share" data-url="https://cssminifier.com/" data-text="Online CSS Minifier/Compressor. Free! Provides an API. Simple Quick and Fast." data-via="andychilton" class="twitter-share-button">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        </div>
+        <div class="col-4">
+          <div id="fb-root"></div>
+          <div style="font-size:1px;display:inline-block;" data-href="https://cssminifier.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" class="fb-like"></div>
+          <script>
+            (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
+          </script>
+        </div>
+        <div class="col-4">
+          <div style="font-size:1px;display:inline-block;" data-size="medium" data-href="https://cssminifier.com/" class="g-plusone"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8 c">
+      <p>We recommend <a href="https://www.digitalocean.com/?refcode=c151de638f83">Digital Ocean</a> for hosting your sites. Free $10 credit when you sign up.</p>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-6">
-      <h3 class="muted">Input CSS</h3>
+      <h3>Input CSS</h3>
       <form id="input-form" method="post" name="f" action="/minify" class="form-stacked">
         <fieldset>
           <div class="clearfix">
@@ -21,7 +54,7 @@
     </div>
 
     <div class="col-6">
-      <h3 class="muted">Minified Output</h3>
+      <h3>Minified Output</h3>
       <form id="output-form" name="f" class="form-stacked">
         <fieldset>
           <div class="clearfix">
@@ -39,36 +72,33 @@
 
   <div class="row">
     <div class="col">
-      <h2 class="muted">Language Examples</h2>
-      <p>Click on the language of your choice:</p>
-      <p class="btn-group" role="group" aria-label="Language Examples Navigation">
-        <a href="/wget" class="btn btn-primary">wget</a>
-        <a href="/curl" class="btn btn-secondary">Curl</a>
-        <a href="/nodejs" class="btn btn-success">Node.js</a>
-        <a href="/python" class="btn btn-info">Python</a>
-        <a href="/ruby" class="btn btn-default">Ruby</a>
-        <a href="/perl" class="btn btn-default">Perl</a>
-        <a href="/php" class="btn btn-default">PHP</a>
-        <a href="/c-sharp" class="btn btn-default">C#</a>
-      </p>
-      <h3 class="muted">More Languages</h3>
-      <p>
-        Please open a Pull Request on the
-        <a href="https://github.com/appsattic/cssminifier.com">cssminifier.com repository</a>
-        to add more language examples or fix the current ones.
-      </p>
-      <h2 class="muted">API - General</h2>
+
+      {{ template "languages.html" . }}
+
+      <h3>API - General</h3>
       <p>
         To minify/compress your CSS perform a POST request to <code>https://cssminifier.com/raw</code> with the
         <code>input</code> parameter set to the CSS you want to minify.
       </p>
       <pre>POST https://cssminifier.com/raw?input=...</pre>
       <p>To see implementations in other languages see the Language Examples pages above.</p>
-      <h2 class="muted">Plugins</h2>
-      <p>Many of our users have made plugins for various editors which are listed on the <a href="/plugins">plugins</a> page.</p>
-      <h2 class="muted">Programs</h2>
-      <p>Lots of people are making little programs to use CSS Minifier - see the <a href="/programs">programs</a> page.</p>
+
+      <h3>Plugins</h3>
+      <p>
+        Many of our users have made plugins for various editors which are listed on the
+        <a href="/plugins">plugins</a>
+        page.
+      </p>
+
+      <h3>Programs</h3>
+      <p>
+        Lots of people are making little programs to use CSS Minifier - see the
+        <a href="/programs">programs</a>
+        page.
+      </p>
+
       <p>(Ends)</p>
+
     </div>
 
 {{ template "footer.html" . }}

@@ -1,0 +1,78 @@
+{{ template "header.html" . }}
+
+  <div>
+    <h1>C#</h1>
+
+    <p>
+      Thanks to Dennis Janiak for contributing this example.
+    </p>
+
+<figure class="highlight"><pre><code>public static class CssMinifier
+{
+    private const string URL_CSS_MINIFIER       = &quot;https://cssminifier.com/raw&quot;;
+    private const string POST_PAREMETER_NAME    = &quot;input&quot;;
+
+    public static async Task&lt;String&gt; MinifyCss(string inputCss)
+    {
+        List&lt;KeyValuePair&lt;String, String&gt;&gt; contentData = new List&lt;KeyValuePair&lt;String, String&gt;&gt;
+        {
+            new KeyValuePair&lt;String, String&gt;(POST_PAREMETER_NAME, inputCss)
+        };
+
+        using (HttpClient httpClient = new HttpClient())
+        {
+            using (FormUrlEncodedContent content = new FormUrlEncodedContent(contentData))
+            {
+                using (HttpResponseMessage response = await httpClient.PostAsync(URL_CSS_MINIFIER, content))
+                {
+                    response.EnsureSuccessStatusCode();
+                    return await response.Content.ReadAsStringAsync();
+                }
+            }
+        }
+    }
+}</code></pre></figure>
+
+    <p>
+      Usage:
+    </p>
+
+<figure class="highlight"><pre><code>using (Task&lt;String&gt; task = CssMinifier.MinifyCss("/* test commentary */ input { font-size: 9pt ; }   "))
+{
+    task.Wait();
+    Console.WriteLine(task.Result); // input{font-size:9pt}
+}</code></pre></figure>
+
+    <p>
+      Thanks to Juan Herrera for contributing this next example.
+    </p>
+
+<figure class="highlight"><pre><code>HttpWebRequest request = (HttpWebRequest)WebRequest.Create(&quot;https://cssminifier.com/raw&quot;);
+request.Method = &quot;POST&quot;;
+string formContent = &quot;input=&quot; + cssContent.Text;
+byte[] byteArray = Encoding.UTF8.GetBytes(formContent);
+request.ContentType = &quot;application/x-www-form-urlencoded&quot;;
+request.ContentLength = byteArray.Length;
+
+Stream str = request.GetRequestStream();
+str.Write(byteArray, 0, byteArray.Length);
+str.Close();
+
+WebResponse response = request.GetResponse();
+str = response.GetResponseStream();
+if (str != null)
+{
+  StreamReader reader = new StreamReader(str);
+  cssMinified.Text = reader.ReadToEnd();
+  reader.Close();
+  str.Close();
+}
+response.Close();</code></pre></figure>
+
+    <p>(Ends)</p>
+
+    {{ template "languages.html" . }}
+
+  </div>
+
+{{ template "footer.html" . }}

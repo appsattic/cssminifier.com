@@ -1,0 +1,45 @@
+{{ template "header.html" . }}
+
+  <div>
+    <h1>node.js</h1>
+
+    <p>
+      Minifying some CSS:
+    </p>
+    <figure class="highlight">
+      <pre><code>var querystring = require('querystring');
+var http  = require('http');
+
+var query = querystring.stringify({
+    input : "p { color : red; }",
+});
+
+var req = http.request(
+    {
+        method   : 'POST',
+        hostname : 'cssminifier.com',
+        path     : '/raw',
+    },
+    function(resp) {
+        // if the statusCode isn't what we expect, get out of here
+        if ( resp.statusCode !== 200 ) {
+            console.log('StatusCode=' + resp.statusCode);
+            return;
+        }
+
+        resp.pipe(process.stdout);
+    }
+);
+req.on('error', function(err) {
+    throw err;
+});
+req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
+req.setHeader('Content-Length', query.length);
+req.end(query, 'utf8');</code></pre>
+    </figure>
+
+    <p>(Ends)</p>
+
+  </div>
+
+{{ template "footer.html" . }}

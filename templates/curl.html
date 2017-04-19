@@ -1,0 +1,24 @@
+{{ template "header.html" . }}
+
+  <div>
+    <h1>curl</h1>
+
+    <p>
+      Minifying some CSS:
+    </p>
+    <figure class="highlight">
+      <pre><code>curl -X POST -s --data-urlencode 'input=p { color : red; }' https://cssminifier.com/raw</code></pre>
+    </figure>
+
+    <p>
+      Minifying a CSS file (e.g. style.css -> style.min.css):
+    </p>
+    <figure class="highlight">
+      <pre><code>curl -X POST -s --data-urlencode 'input@style.css' https://cssminifier.com/raw > style.min.css</code></pre>
+    </figure>
+
+    <p>(Ends)</p>
+
+  </div>
+
+{{ template "footer.html" . }}

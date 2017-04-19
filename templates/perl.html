@@ -1,0 +1,38 @@
+{{ template "header.html" . }}
+
+  <div>
+    <h1>Perl</h1>
+
+    <p>
+      Thanks to Boris Kotyrev (I've adapted what he sent to be more minimal).
+    </p>
+    <figure class="highlight">
+      <pre><code>use strict;
+use warnings;
+
+use File::Slurp;
+use HTTP::Request::Common qw(POST);
+use LWP::UserAgent;
+
+sub minify {
+    my ($css) = @_;
+
+    my $css_min_url = &quot;https://cssminifier.com/raw&quot;;
+
+    my $ua = LWP::UserAgent-&gt;new;
+    my $request = POST($css_min_url, [ 'input' =&gt; $css ]);
+    my $css_min = $ua-&gt;request($request)-&gt;decoded_content();
+
+    return $css_min;
+}
+
+print minify($css, &quot;\n&quot;);</code></pre>
+    </figure>
+
+    <p>(Ends)</p>
+
+    {{ template "languages.html" . }}
+
+  </div>
+
+{{ template "footer.html" . }}
