@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/sha256"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -24,20 +25,32 @@ func minifyFile(input string) (io.Reader, error) {
 	fmt.Printf("minfile=%s\n", minfile)
 	fmt.Printf("outfile=%s\n", outfile)
 
-	// write to a file
+	// write to both the file and the SHA256 hash at the same time
 	fOrig, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0600)
 	if err != nil {
 		return nil, err
 	}
 	defer fOrig.Close()
 
-	// copy from the input to the file
-	n, err := io.WriteString(fOrig, input)
+	// create the hasher
+	hash := sha256.New()
+
+	// might as well write to both the file and the hash at the same time
+	multiWriter := io.MultiWriter(fOrig, hash)
+
+	// copy from the input to the file AND hash at the same time
+	n, err := io.WriteString(multiWriter, input)
 	if err != nil {
 		return nil, err
 	}
 	fmt.Printf("Written %d bytes to original file.\n", n)
 	fOrig.Close()
+
+	// get the hashSum
+	hashSum := fmt.Sprintf("%x", hash.Sum(nil))
+	fmt.Printf("hash=%s\n", hashSum)
+
+	// ToDo: check the status of this hash in Redis
 
 	// run `cleancss` (stdout is the minified file, and stderr has something if there's a problem)
 	cmd := exec.Command("./node_modules/.bin/cleancss", filename)
@@ -99,11 +112,13 @@ func minifyFile(input string) (io.Reader, error) {
 		return nil, err
 	}
 
-	// write out both stderr AND the minified CSS
+	// read both the (modified) stderr and stdout in succession
 	r := io.MultiReader(strings.NewReader(slurpStdErr), strings.NewReader(slurpStdOut))
 
-	// finally, write to this file at the same time
-	tee := io.TeeReader(r, min)
+	// ToDo: separate the writing to the file and the writing to the request (ie. don't use the TeeReader below,
+	// because I'm not sure if the writing to the file stops if the connection is closed and that's also
+	// closed). Dunno. Let's just make it more explicit.
 
-	return tee, nil
+	// finally, write to this file at the same time as the response
+	return io.TeeReader(r, min), nil
 }
